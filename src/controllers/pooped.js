@@ -1,7 +1,5 @@
 var PoopSvc = require('../services/poop');
 
-var dateKey = require('../utils/dateKey');
-
 function _todayText(users) {
   if (!users || !users.length) {
     return 'OMG... no one has pooped today';
