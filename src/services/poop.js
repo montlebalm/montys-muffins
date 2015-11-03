@@ -10,10 +10,12 @@ module.exports = {
     if (!usersByDate[key]) usersByDate[key] = {};
     if (!usersByDate[key][user]) usersByDate[key][user] = { name: user, count: 0 };
     usersByDate[key][user].count += 1;
-    return Promise.resolve(usersByDate[key][user]);
+    var user = usersByDate[key][user];
+    return Promise.resolve(user);
   },
   today: function() {
     var key = dateKey(new Date());
-    return _.values(usersByDate[key]);
+    var users = _.values(usersByDate[key]);
+    return Promise.resolve(users);
   }
 };
