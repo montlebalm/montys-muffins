@@ -1,17 +1,17 @@
 var PoopSvc = require('../services/poop');
 
-function _poopText(user, count) {
+function _poopText(user) {
   var ordinals = ['first', 'second', 'third', 'fourth'];
   var txt;
 
-  if (count == 1) {
-    txt = user + ' is pooping for the first time today!';
-  } else if (count < ordinals.length) {
-    txt = user + ' is pooping for the ' + ordinals[count - 1] + ' time.';
-  } else if (count == ordinals.length) {
-    txt = user + ' has pooped ' + count + ' times! Poopbot is getting worried';
-  } else if (count == ordinals.length + 1) {
-    txt = 'Poopbot thinks something is wrong with ' + user + '. Poopbot has called the police.';
+  if (user.count == 1) {
+    txt = user.name + ' is pooping for the first time today!';
+  } else if (user.count < ordinals.length) {
+    txt = user.name + ' is pooping for the ' + ordinals[user.count - 1] + ' time.';
+  } else if (user.count == ordinals.length) {
+    txt = user.name + ' has pooped ' + user.count + ' times! Poopbot is getting worried';
+  } else if (user.count == ordinals.length + 1) {
+    txt = 'Poopbot thinks something is wrong with ' + user.name + '. Poopbot has called the police.';
   } else {
     txt = 'Poopbot thinks your playing a poopy joke and chooses not to engage.';
   }
@@ -33,14 +33,13 @@ function _poopText(user, count) {
  *     text=94070
 */
 module.exports = function(req, res) {
-  var user = req.body.user_name;
+  var user_name = req.body.user_name;
 
-  PoopSvc.pooped(user).then(function(count) {
-    console.log("COUNT:", count);
+  PoopSvc.pooped(user_name).then(function(user) {
     res.json({
       attachments: [],
       response_type: 'in_channel',
-      text: _poopText(user, count),
+      text: _poopText(user),
     });
   });
 };
