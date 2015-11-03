@@ -1,5 +1,7 @@
 var Hapi = require('hapi');
 
+var PoopinController = require('./src/controllers/poopin');
+
 var server = new Hapi.Server();
 server.connection({ port: process.env.PORT || 3000 });
 
@@ -18,10 +20,7 @@ server.connection({ port: process.env.PORT || 3000 });
 server.route({
   method: 'POST',
   path: '/poopin',
-  handler: function(req, reply) {
-    var user = req.payload.user_name;
-    reply(user + 'is poopin');
-  },
+  handler: PoopinController,
 });
 
 server.start(function() {
