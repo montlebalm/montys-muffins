@@ -1,21 +1,40 @@
 var _ = require('lodash');
+var mongoose = require('mongoose');
 
 var dateKey = require('../utils/dateKey');
 
-var usersByDate = {};
+mongoose.connect(process.env.MONGOLAB_URI);
+var Day = mongoose.model('Day', { users: Object, date: String });
 
 module.exports = {
   pooped: function(user) {
     var key = dateKey(new Date());
-    if (!usersByDate[key]) usersByDate[key] = {};
-    if (!usersByDate[key][user]) usersByDate[key][user] = { name: user, count: 0 };
-    usersByDate[key][user].count += 1;
-    var user = usersByDate[key][user];
-    return Promise.resolve(user);
+
+    return new Promise(function(resolve, reject) {
+      Day.findOne({ date: key }, function(err, day) {
+        if (err) return reject(err);
+        if (!day) day = new Day({ users: {} });
+        if (!day.users[user]) day.users[user] = { name: user, count: 0 };
+
+        day.users[user].count += 1;
+
+        day.save(function(err) {
+          if (err) return reject(err);
+          resolve(day.users[user]);
+        });
+      });
+    });
   },
   today: function() {
     var key = dateKey(new Date());
-    var users = _.values(usersByDate[key]);
-    return Promise.resolve(users);
+
+    return new Promise(function(resolve, reject) {
+      Day.findOne({ date: key }, function(err, day) {
+        if (err) return reject(err);
+        if (!day) return resolve([]);
+        var users = _.values(day.users);
+        resolve(users);
+      });
+    });
   }
 };

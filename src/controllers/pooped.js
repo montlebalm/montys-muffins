@@ -14,7 +14,7 @@ function _todayText(users) {
 
   return [
     '```',
-    'Poops today:\n',
+    'Poops today\n',
     usersCount,
     '```'
   ].join('');
