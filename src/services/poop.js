@@ -20,6 +20,7 @@ module.exports = {
         if (err) return reject(err);
 
         if (!day) {
+          console.log('NO DAY');
           day = new Day({ users: [], date: key });
         }
 
@@ -34,6 +35,7 @@ module.exports = {
         user.count += 1;
 
         day.save(function(err, saved) {
+          console.log('SAVED', err, saved);
           if (err) return reject(err);
           resolve(user);
         });
