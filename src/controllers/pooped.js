@@ -32,11 +32,9 @@ function _todayText(users) {
 */
 module.exports = function(req, res) {
   var user = req.body.user_name;
-  var command = req.body.command;
+  var command_text = req.body.text;
 
-  console.log(req.body);
-
-  if (command.indexOf('today') !== -1) {
+  if (text == 'today') {
     PoopSvc.today().then(function(users) {
       res.json({
         attachments: [],
