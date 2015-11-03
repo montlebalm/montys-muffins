@@ -34,6 +34,8 @@ function _poopText(count) {
 module.exports = function(req, res) {
   var user = req.payload.user_name;
 
+  console.log(req);
+
   PoopSvc.pooped(user).then(function(count) {
     res.json({
       attachments: [],
