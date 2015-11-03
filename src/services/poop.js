@@ -12,10 +12,11 @@ module.exports = {
 
     return new Promise(function(resolve, reject) {
       Day.findOne({ date: key }, function(err, day) {
-        console.log(day);
+        console.log('DAY:', day);
         if (err) return reject(err);
-        if (!day) day = new Day({ users: {} });
+        if (!day) day = new Day({ users: {}, date: key });
         if (!day.users[user]) day.users[user] = { name: user, count: 0 };
+        console.log('DAY:', day);
 
         day.users[user].count += 1;
 
