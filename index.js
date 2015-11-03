@@ -7,7 +7,7 @@ server.connection({ port: process.env.PORT || 3000 });
 
 server.route({
   method: 'GET',
-  path: '/auth{code}{state?}',
+  path: '/auth',
   handler: function(request, reply) {
     reply(true);
   },
