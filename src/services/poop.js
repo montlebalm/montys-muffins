@@ -9,7 +9,7 @@ var daySchema = new mongoose.Schema({
   users: 'array',
   date: 'string'
 });
-var Day = mongoose.model('Day', daySchema);
+var Day = mongoose.model('Date', daySchema);
 
 module.exports = {
   poopin: function(username) {
