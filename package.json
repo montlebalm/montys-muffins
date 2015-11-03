@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/montlebalm/montys-muffins#readme",
   "dependencies": {
-    "hapi": "^11.0.4"
+    "hapi": "^11.0.4",
+    "request": "^2.65.0"
   }
 }

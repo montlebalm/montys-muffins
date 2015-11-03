@@ -1,5 +1,6 @@
 var Hapi = require('hapi');
 
+var AuthController = require('./src/controllers/auth');
 var PoopinController = require('./src/controllers/poopin');
 
 var server = new Hapi.Server();
@@ -8,9 +9,7 @@ server.connection({ port: process.env.PORT || 3000 });
 server.route({
   method: 'GET',
   path: '/auth',
-  handler: function(request, reply) {
-    reply(true);
-  },
+  handler: AuthController,
 });
 
 server.route({
