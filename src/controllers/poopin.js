@@ -1,18 +1,19 @@
 var PoopSvc = require('../services/poop');
 
-
 function _poopText(user, count) {
-  var ordinals = ['first', 'second', 'third'];
+  var ordinals = ['first', 'second', 'third', 'fourth'];
   var txt;
 
   if (count == 1) {
     txt = user + ' is pooping for the first time today!';
   } else if (count < ordinals.length) {
     txt = user + ' is pooping for the ' + ordinals[count - 1] + ' time.';
-  } else if (count > 10) {
+  } else if (count == ordinals.length) {
+    txt = user + ' has pooped ' + count + ' times! Poopbot is getting worried';
+  } else if (count == ordinals.length + 1) {
     txt = 'Poopbot thinks something is wrong with ' + user + '. Poopbot has called the police.';
   } else {
-    txt = user + ' has pooped ' + count + ' times! Poopbot is getting worried';
+    txt = 'Poopbot thinks your playing a poopy joke and chooses not to engage.';
   }
 
   return txt;
