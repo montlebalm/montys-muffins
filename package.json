@@ -4,7 +4,7 @@
   "description": "Slash Command for weaponized muffinry",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test/**/*.test.js"
   },
   "repository": {
     "type": "git",
@@ -25,5 +25,11 @@
     "mongoose": "^4.2.4",
     "pg": "^4.4.3",
     "request": "^2.65.0"
+  },
+  "devDependencies": {
+    "chai": "^3.4.0",
+    "mocha": "^2.3.3",
+    "mockery": "^1.4.0",
+    "sinon": "^1.17.2"
   }
 }
