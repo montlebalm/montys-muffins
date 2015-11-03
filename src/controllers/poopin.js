@@ -36,6 +36,7 @@ module.exports = function(req, res) {
   var user = req.body.user_name;
 
   PoopSvc.pooped(user).then(function(count) {
+    console.log("COUNT:", count);
     res.json({
       attachments: [],
       response_type: 'in_channel',
