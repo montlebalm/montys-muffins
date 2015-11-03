@@ -9,13 +9,13 @@ function _todayText(users) {
     return a.count - b.count;
   });
   var usersCount = usersSorted.map(function(user) {
-    return '  ' + user.name + ': ' + user.count + '\n';
+    return '  ' + user.name + ': ' + user.count;
   });
 
   return [
     '```',
     'Poops today\n',
-    usersCount,
+    usersCount.join('\n'),
     '```'
   ].join('');
 }
