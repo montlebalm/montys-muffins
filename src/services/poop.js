@@ -20,25 +20,26 @@ module.exports = {
         if (err) return reject(err);
 
         if (!day) {
-          console.log('NO DAY');
-          day = new Day({ users: [], date: key });
+          var user = { name: username, count: 1 };
+          Day.create({
+            users: [user],
+            date: key
+          }, function(err) {
+            if (err) return reject(err);
+            resolve(user);
+          });
+        } else {
+          var user = _.find(day.users, { name: username });
+          if (!user) {
+            user = { name: username, count: 0 };
+            day.users.push(user);
+          }
+          user.count += 1;
+          day.update(function(err) {
+            if (err) return reject(err);
+            resolve(user);
+          });
         }
-
-        var user = _.find(day.users, { name: username });
-
-        if (!user) {
-          console.log('NO USER');
-          user = { name: username, count: 0 };
-          day.users.push(user);
-        }
-
-        user.count += 1;
-
-        day.save(function(err, saved) {
-          console.log('SAVED', err, saved);
-          if (err) return reject(err);
-          resolve(user);
-        });
       });
     });
   },
