@@ -2,10 +2,13 @@ var PoopSvc = require('../services/poop');
 
 function _todayText(users) {
   if (!users || !users.length) {
-    return 'OMG... no one has pooped today';
+    return 'OMG no one has pooped.';
   }
 
-  var usersCount = users.map(function(user) {
+  var usersSorted = users.sort(function(a, b) {
+    return a.count - b.count;
+  });
+  var usersCount = usersSorted.map(function(user) {
     return '  ' + user.name + ': ' + user.count + '\n';
   });
 
@@ -14,7 +17,7 @@ function _todayText(users) {
     'Poops today:',
     usersCount,
     '```'
-  ];
+  ].join('');
 }
 
 /**
