@@ -1,0 +1,22 @@
+{
+  "name": "montys-muffins",
+  "version": "1.0.0",
+  "description": "Slash Command for weaponized muffinry",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/montlebalm/montys-muffins.git"
+  },
+  "author": "Chris Montrois",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/montlebalm/montys-muffins/issues"
+  },
+  "homepage": "https://github.com/montlebalm/montys-muffins#readme",
+  "dependencies": {
+    "hapi": "^11.0.4"
+  }
+}
