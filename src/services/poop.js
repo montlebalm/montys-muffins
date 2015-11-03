@@ -4,24 +4,38 @@ var mongoose = require('mongoose');
 var dateKey = require('../utils/dateKey');
 
 mongoose.connect(process.env.MONGOLAB_URI);
-var Day = mongoose.model('Day', { users: Object, date: String });
+
+var daySchema = new mongoose.Schema({
+  users: 'array',
+  date: 'string'
+});
+var Day = mongoose.model('Day', daySchema);
 
 module.exports = {
-  poopin: function(user) {
+  poopin: function(username) {
     var key = dateKey(new Date());
 
     return new Promise(function(resolve, reject) {
       Day.findOne({ date: key }, function(err, day) {
         if (err) return reject(err);
-        if (!day) day = new Day({ users: {}, date: key });
-        if (!day.users[user]) day.users[user] = { name: user, count: 0 };
 
-        day.users[user].count += 1;
+        if (!day) {
+          day = new Day({ users: [], date: key });
+        }
+
+        var user = _.find(day.users, { name: username });
+
+        if (!user) {
+          console.log('NO USER');
+          user = { name: username, count: 0 };
+          day.users.push(user);
+        }
+
+        user.count += 1;
 
         day.save(function(err, saved) {
-          console.log('SAVED:', saved);
           if (err) return reject(err);
-          resolve(saved.users[user]);
+          resolve(user);
         });
       });
     });
@@ -33,8 +47,7 @@ module.exports = {
       Day.findOne({ date: key }, function(err, day) {
         if (err) return reject(err);
         if (!day) return resolve([]);
-        var users = _.values(day.users);
-        resolve(users);
+        resolve(day.users);
       });
     });
   }
