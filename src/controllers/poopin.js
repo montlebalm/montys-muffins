@@ -32,9 +32,9 @@ function _poopText(count) {
  *     text=94070
 */
 module.exports = function(req, res) {
+  console.log(req);
   var user = req.payload.user_name;
 
-  console.log(req);
 
   PoopSvc.pooped(user).then(function(count) {
     res.json({
