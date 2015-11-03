@@ -7,11 +7,12 @@ mongoose.connect(process.env.MONGOLAB_URI);
 var Day = mongoose.model('Day', { users: Object, date: String });
 
 module.exports = {
-  pooped: function(user) {
+  poopin: function(user) {
     var key = dateKey(new Date());
 
     return new Promise(function(resolve, reject) {
       Day.findOne({ date: key }, function(err, day) {
+        console.log(day);
         if (err) return reject(err);
         if (!day) day = new Day({ users: {} });
         if (!day.users[user]) day.users[user] = { name: user, count: 0 };

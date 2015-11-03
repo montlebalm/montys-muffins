@@ -35,7 +35,7 @@ function _poopText(user) {
 module.exports = function(req, res) {
   var user_name = req.body.user_name;
 
-  PoopSvc.pooped(user_name).then(function(user) {
+  PoopSvc.poopin(user_name).then(function(user) {
     res.json({
       attachments: [],
       response_type: 'in_channel',
