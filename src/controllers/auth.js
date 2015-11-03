@@ -2,7 +2,7 @@ var request = require('request');
 var qs = require('qs');
 
 module.exports = function(req, res) {
-  var code = req.params.code;
+  var code = req.query.code;
   var client_id = process.env.POOPIN_CLIENT_ID;
   var client_secret = process.env.POOPIN_CLIENT_SECRET;
 

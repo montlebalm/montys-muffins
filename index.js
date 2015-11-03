@@ -4,7 +4,7 @@ var AuthController = require('./src/controllers/auth');
 var PoopinController = require('./src/controllers/poopin');
 
 var app = express();
-app.get('/auth?:code', AuthController);
+app.get('/auth', AuthController);
 app.post('/poopin', PoopinController);
 
 var server = app.listen(process.env.PORT || 5000, function() {
