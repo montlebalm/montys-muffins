@@ -19,10 +19,8 @@ server.route({
   method: 'POST',
   path: '/poopin',
   handler: function(req, reply) {
-    console.log('==================================');
-    console.log(req);
-    console.log('==================================');
-    reply('poopin');
+    var user = req.payload.user_name;
+    reply(user + 'is poopin');
   },
 });
 
