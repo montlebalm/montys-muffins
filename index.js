@@ -1,23 +1,14 @@
-var Hapi = require('hapi');
+var express = require('express');
 
 var AuthController = require('./src/controllers/auth');
 var PoopinController = require('./src/controllers/poopin');
 
-var server = new Hapi.Server();
-server.connection({ port: process.env.PORT || 3000 });
+var app = express();
+app.get('/auth?code&state;
+app.post('/poopin', PoopinController);
 
-server.route({
-  method: 'GET',
-  path: '/auth',
-  handler: AuthController,
-});
-
-server.route({
-  method: 'POST',
-  path: '/poopin',
-  handler: PoopinController,
-});
-
-server.start(function() {
-  console.log('Server running at:', server.info.uri);
+var server = app.listen(process.env.PORT || 5000, function() {
+  var host = server.address().address;
+  var port = server.address().port;
+  console.log('Listening at http://%s:%s', host, port);
 });

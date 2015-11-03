@@ -1,21 +1,18 @@
 var request = require('request');
 var qs = require('qs');
 
-var CLIENT_ID = process.env.POOPIN_CLIENT_ID;
-var CLIENT_SECRET = process.env.POOPIN_CLIENT_SECRET;
-
-module.exports = function(req, reply) {
-  var code = req.params.code;
-  var state = req.params.state;
+module.exports = function(req, res) {
+  var code = req.param('code');
+  var client_id = process.env.POOPIN_CLIENT_ID;
+  var client_secret = process.env.POOPIN_CLIENT_SECRET;
 
   var url = 'https://slack.com/api/oauth.access?' + qs.stringify({
-    client_id: CLIENT_ID,
-    client_secret: CLIENT_SECRET,
+    client_id: client_id,
+    client_secret: client_secret,
     code: code,
   });
-
-  request.post(url, function(err, res, body) {
+  request.post(url, function(err, http, body) {
     console.log('OAUTH.ACCESS:', body);
-    reply(true);
+    res(true);
   });
 };
