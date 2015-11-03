@@ -7,12 +7,13 @@ module.exports = function(req, reply) {
   var code = req.params.code;
   var state = req.params.state;
 
-  request.get('https://slack.com/api/oauth.access', {
+  request.post('https://slack.com/api/oauth.access', {
     client_id: CLIENT_ID,
     client_secret: CLIENT_SECRET,
     code: code,
     redirect_uri: 'https://pooping.herokuapp.com/auth',
   }, function(err, res, body) {
+    console.log('OAUTH.ACCESS:', body);
     reply(true);
   });
 };
