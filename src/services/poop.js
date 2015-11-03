@@ -22,7 +22,7 @@ module.exports = {
         if (!day) {
           console.log('NO DAY');
           var user = { name: username, count: 1 };
-          Day.create({
+          return Day.create({
             users: [user],
             date: key
           }, function(err, saved) {
@@ -30,20 +30,21 @@ module.exports = {
             if (err) return reject(err);
             resolve(user);
           });
-        } else {
-          var user = _.find(day.users, { name: username });
-          if (!user) {
-            console.log('NO DAY');
-            user = { name: username, count: 0 };
-            day.users.push(user);
-          }
-          user.count += 1;
-          day.update(function(err, updated) {
-            console.log('UPDATED', err, updated);
-            if (err) return reject(err);
-            resolve(user);
-          });
         }
+
+        var user = _.find(day.users, { name: username });
+        if (!user) {
+          console.log('NO DAY');
+          user = { name: username, count: 0 };
+          day.users.push(user);
+        }
+        user.count += 1;
+
+        Day.findOneAndUpdate({ date: key }, day, function(err, updated) {
+          console.log('UPDATED', err, updated);
+          if (err) return reject(err);
+          resolve(user);
+        });
       });
     });
   },
