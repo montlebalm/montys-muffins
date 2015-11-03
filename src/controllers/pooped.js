@@ -34,7 +34,7 @@ module.exports = function(req, res) {
   var user = req.body.user_name;
   var command_text = req.body.text;
 
-  if (text == 'today') {
+  if (command_text == 'today') {
     PoopSvc.today().then(function(users) {
       res.json({
         attachments: [],
