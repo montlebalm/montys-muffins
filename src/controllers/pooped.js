@@ -34,6 +34,8 @@ module.exports = function(req, res) {
   var user = req.body.user_name;
   var command = req.body.command;
 
+  console.log(req.body);
+
   if (command.indexOf('today') !== -1) {
     PoopSvc.today().then(function(users) {
       res.json({
