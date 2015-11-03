@@ -11,7 +11,6 @@ module.exports = function(req, reply) {
     client_id: CLIENT_ID,
     client_secret: CLIENT_SECRET,
     code: code,
-    redirect_uri: 'https://pooping.herokuapp.com/auth',
   }, function(err, res, body) {
     console.log('OAUTH.ACCESS:', body);
     reply(true);
