@@ -1,14 +1,14 @@
 var PoopSvc = require('../services/poop');
 
-var ORDINALS = ['first', 'second', 'third'];
 
-function _poopText(count) {
+function _poopText(user, count) {
+  var ordinals = ['first', 'second', 'third'];
   var txt;
 
   if (count == 1) {
     txt = user + ' is pooping for the first time today!';
-  } else if (count < ORDINALS.length) {
-    txt = user + ' is pooping for the ' + ORDINALS[count - 1] + ' time.';
+  } else if (count < ordinals.length) {
+    txt = user + ' is pooping for the ' + ordinals[count - 1] + ' time.';
   } else if (count > 10) {
     txt = 'Poopbot thinks something is wrong with ' + user + '. Poopbot has called the police.';
   } else {
@@ -32,15 +32,13 @@ function _poopText(count) {
  *     text=94070
 */
 module.exports = function(req, res) {
-  console.log(req);
-  var user = req.payload.user_name;
-
+  var user = req.body.user_name;
 
   PoopSvc.pooped(user).then(function(count) {
     res.json({
       attachments: [],
       response_type: 'in_channel',
-      text: _poopText(count),
+      text: _poopText(user, count),
     });
   });
 };
