@@ -4,6 +4,18 @@ var dateKey = require('../utils/dateKey');
 var dateParser = require('../utils/dateParser');
 var PoopSvc = require('../services/poop');
 
+function _dayText(date) {
+  var dayText;
+  if (moment(date).isSame(moment(), 'day')) {
+    dayText = 'today';
+  } else if (moment(date).isSame(moment().add(-1, 'day'), 'day')) {
+    dayText = 'yesterday';
+  } else {
+    dayText = moment(date).format('M-D-YY');
+  }
+  return dayText;
+}
+
 function _todayText(date, users) {
   if (!users || !users.length) {
     return 'OMG no one has pooped.';
@@ -16,11 +28,10 @@ function _todayText(date, users) {
     return '  ' + user.name + ': ' + user.count;
   });
 
-  var dayText = 'today';
 
   return [
     '```',
-    'Poops for ' + dayText,
+    'Poops for ' + _dayText(date),
     usersCount.join('\n'),
     '```'
   ].join('\n');
