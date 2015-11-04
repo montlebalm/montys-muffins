@@ -1,2 +1,3 @@
-# montys-muffins
-Testing Slash Commands for weaponized muffinry
+# Slashy Slash Commands
+
+Testing Slash Commands for weaponized buffoonery.
