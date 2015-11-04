@@ -3,14 +3,14 @@ var bodyParser = require('body-parser');
 
 var AuthController = require('./src/controllers/auth');
 var PoopinController = require('./src/controllers/poopin');
-var PoopedController = require('./src/controllers/pooped');
+var WhoPoopedController = require('./src/controllers/whopooped');
 
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/auth', AuthController);
 app.post('/poopin', PoopinController);
-app.post('/pooped', PoopedController);
+app.post('/whopooped', WhoPoopedController);
 
 var server = app.listen(process.env.PORT || 5000, function() {
   var host = server.address().address;
