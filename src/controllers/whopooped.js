@@ -2,39 +2,7 @@ var moment = require('moment');
 
 var dateParser = require('../utils/dateParser');
 var PoopSvc = require('../services/poop');
-
-function _dayText(date) {
-  var dayText;
-  if (moment(date).isSame(moment(), 'day')) {
-    dayText = 'today';
-  } else if (moment(date).isSame(moment().add(-1, 'day'), 'day')) {
-    dayText = 'yesterday';
-  } else {
-    dayText = moment(date).format('M-D-YY');
-  }
-  return dayText;
-}
-
-function _todayText(date, users) {
-  if (!users || !users.length) {
-    return 'OMG no one has pooped.';
-  }
-
-  var usersSorted = users.sort(function(a, b) {
-    return a.count - b.count;
-  });
-  var usersCount = usersSorted.map(function(user) {
-    return '  ' + user.name + ': ' + user.count;
-  });
-
-
-  return [
-    '```',
-    'Poops for ' + _dayText(date),
-    usersCount.join('\n'),
-    '```'
-  ].join('\n');
-}
+var texts = require('../utils/texts');
 
 /**
  * Request Example:
@@ -76,7 +44,7 @@ module.exports = function(req, res) {
     PoopSvc.report(date).then(function(users) {
       res.json({
         response_type: 'in_channel',
-        text: _todayText(date, users),
+        text: texts.report(date, users),
       });
     });
   } else {
