@@ -60,22 +60,17 @@ module.exports = function(req, res) {
         response_type: 'in_channel',
         text: 'It is dangerous to know your poop future.',
       });
-    } else if (commandText == 'reset') {
-      PoopSvc.reset(username, moment().toDate()).then(function(users) {
-        res.json({
-          response_type: 'in_channel',
-          text: _todayText(date, users),
-        });
+    } else if (commandText == 'flush') {
+      return PoopSvc.reset(username, moment().toDate()).then(function(success) {
+        if (success) return res.json({ text: username + ' is back to 0 poops', });
+        res.json({ text: 'Couldn\'t flush the poop.', });
       });
     }
 
     var date = dateParser(commandText);
 
     if (!date) {
-      return res.json({
-        response_type: 'in_channel',
-        text: 'You dum.',
-      });
+      return res.json({ text: 'You dum.', });
     }
 
     PoopSvc.report(date).then(function(users) {

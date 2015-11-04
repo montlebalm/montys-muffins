@@ -1,16 +1,8 @@
 var _ = require('lodash');
 var moment = require('moment');
-var mongoose = require('mongoose');
 
 var dateKey = require('../utils/dateKey');
-
-mongoose.connect(process.env.MONGOLAB_URI);
-
-var daySchema = new mongoose.Schema({
-  users: 'array',
-  date: 'string'
-});
-var Day = mongoose.model('Day', daySchema);
+var Day = require('../models/day');
 
 module.exports = {
   poopin: function(username) {
