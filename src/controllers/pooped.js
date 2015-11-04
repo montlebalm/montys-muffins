@@ -51,7 +51,7 @@ module.exports = function(req, res) {
       res.json({
         attachments: [],
         response_type: 'in_channel',
-        text: _todayText(users),
+        text: _todayText(date, users),
       });
     });
   } else {
