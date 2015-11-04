@@ -48,8 +48,8 @@ module.exports = {
       });
     });
   },
-  today: function() {
-    var key = dateKey(new Date());
+  report: function(date) {
+    var key = dateKey(date);
 
     return new Promise(function(resolve, reject) {
       Day.findOne({ date: key }, function(err, day) {

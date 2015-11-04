@@ -1,3 +1,6 @@
+var moment = require('moment');
+
+var dateKey = require('../utils/dateKey');
 var PoopSvc = require('../services/poop');
 
 function _todayText(users) {
@@ -35,10 +38,14 @@ function _todayText(users) {
 */
 module.exports = function(req, res) {
   var user = req.body.user_name;
-  var command_text = req.body.text;
+  var commandText = req.body.text;
 
-  if (command_text == 'today') {
-    PoopSvc.today().then(function(users) {
+  if (commandText) {
+    var dateMoment = moment(commandText);
+    var date = (dateMoment.isValid()) ? dateMoment.toDate() : new Date();
+    var key = dateKey(date);
+
+    PoopSvc.report().then(function(users) {
       res.json({
         attachments: [],
         response_type: 'in_channel',
@@ -46,6 +53,7 @@ module.exports = function(req, res) {
       });
     });
   } else {
+    // Snarky response
     res.json({
       attachments: [],
       response_type: 'in_channel',

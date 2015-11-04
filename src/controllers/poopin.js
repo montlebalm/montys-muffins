@@ -33,13 +33,19 @@ function _poopText(user) {
  *     text=94070
 */
 module.exports = function(req, res) {
-  var user_name = req.body.user_name;
+  var username = req.body.user_name;
 
-  PoopSvc.poopin(user_name).then(function(user) {
+  PoopSvc.poopin(username).then(function(user) {
     res.json({
       attachments: [],
       response_type: 'in_channel',
       text: _poopText(user),
     });
-  });
+  }).catch(function() {
+    res.json({
+      attachments: [],
+      response_type: 'in_channel',
+      text: 'The server pooped. Try again.',
+    });
+  });;
 };
