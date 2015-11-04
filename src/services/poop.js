@@ -55,5 +55,23 @@ module.exports = {
         resolve(day.users);
       });
     });
+  },
+  reset: function(username, date) {
+    return new Promise(function(resolve, reject) {
+      Day.findOne({ date: key }, function(err, day) {
+        if (err) return reject(err);
+        if (!day) return resolve(false);
+
+        var user = _.find(day.users, { name: username });
+        if (!user) return resolve(false);
+
+        user.count = 0;
+
+        Day.findOneAndUpdate({ date: key }, day, function(err, updated) {
+          if (err) return reject(err);
+          resolve(true);
+        });
+      });
+    });
   }
 };

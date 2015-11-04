@@ -51,7 +51,7 @@ function _todayText(date, users) {
  *     text=94070
 */
 module.exports = function(req, res) {
-  var user = req.body.user_name;
+  var username = req.body.user_name;
   var commandText = req.body.text;
 
   if (commandText) {
@@ -59,6 +59,13 @@ module.exports = function(req, res) {
       return res.json({
         response_type: 'in_channel',
         text: 'It is dangerous to know your poop future.',
+      });
+    } else if (commandText == 'reset') {
+      PoopSvc.reset(username, moment().toDate()).then(function(users) {
+        res.json({
+          response_type: 'in_channel',
+          text: _todayText(date, users),
+        });
       });
     }
 
