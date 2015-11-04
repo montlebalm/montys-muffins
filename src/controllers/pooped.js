@@ -42,8 +42,6 @@ module.exports = function(req, res) {
   var user = req.body.user_name;
   var commandText = req.body.text;
 
-  console.log(req);
-
   if (commandText) {
     console.log('COMMAND TEXT', commandText);
     var dateMoment = moment(commandText);

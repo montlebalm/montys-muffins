@@ -15,6 +15,8 @@ module.exports = {
   poopin: function(username) {
     var key = dateKey(new Date());
 
+    console.log('KEY', key);
+
     return new Promise(function(resolve, reject) {
       Day.findOne({ date: key }, function(err, day) {
         if (err) return reject(err);
