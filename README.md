@@ -1,6 +1,6 @@
 # Slack Poopin
 
-Slash Commands to prove in print your poingant potty practices.
+Slash Commands to palpably prove in print your periodic poingant potty practices.
 
 I don't recommend using these commands. You should not even install them. You should just stop reading this and go on with your day.
 
