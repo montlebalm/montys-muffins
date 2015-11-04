@@ -21,18 +21,16 @@ module.exports = function(req, res) {
   var username = req.body.user_name;
   var args = req.body.text;
 
-  if (args) {
-    if (args == 'tomorrow') return res.json({ text: 'It is dangerous to know your poop future.', });
+  if (args == 'tomorrow') return res.json({ text: 'It is dangerous to know your poop future.', });
 
-    var date = dateParser(args) || moment().toDate();
+  var date = dateParser(args) || moment().toDate();
 
-    PoopSvc.report(date).then(function(users) {
-      res.json({
-        response_type: 'in_channel',
-        text: texts.report(date, users),
-      });
-    }).catch(function(err) {
-      res.json({ text: 'Oh no (' + err + ')', });
+  PoopSvc.report(date).then(function(users) {
+    res.json({
+      response_type: 'in_channel',
+      text: texts.report(date, users),
     });
-  }
+  }).catch(function(err) {
+    res.json({ text: 'Oh no (' + err + ')', });
+  });
 };
