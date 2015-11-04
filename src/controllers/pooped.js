@@ -1,7 +1,7 @@
 var moment = require('moment');
 
 var dateKey = require('../utils/dateKey');
-var dateParse = require('../utils/dateParse');
+var dateParser = require('../utils/dateParser');
 var PoopSvc = require('../services/poop');
 
 function _todayText(date, users) {
@@ -51,7 +51,7 @@ module.exports = function(req, res) {
       });
     }
 
-    var date = dateParse(commandText);
+    var date = dateParser(commandText);
 
     if (!date) {
       return res.json({
