@@ -49,6 +49,8 @@ module.exports = {
     });
   },
   reset: function(username, date) {
+    var key = dateKey(date);
+
     return new Promise(function(resolve, reject) {
       Day.findOne({ date: key }, function(err, day) {
         if (err) return reject(err);
