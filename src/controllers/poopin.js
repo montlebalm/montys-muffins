@@ -22,7 +22,7 @@ module.exports = function(req, res) {
       response_type: 'in_channel',
       text: texts.poopin(user),
     });
-  }).catch(function() {
-    res.json({ text: 'The server pooped. Try again.', });
-  });;
+  }).catch(function(err) {
+    res.json({ text: 'The server pooped (' + err + ')', });
+  });
 };

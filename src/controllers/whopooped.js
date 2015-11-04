@@ -19,38 +19,20 @@ var texts = require('../utils/texts');
 */
 module.exports = function(req, res) {
   var username = req.body.user_name;
-  var commandText = req.body.text;
+  var args = req.body.text;
 
-  if (commandText) {
-    if (commandText == 'tomorrow') {
-      return res.json({
-        response_type: 'in_channel',
-        text: 'It is dangerous to know your poop future.',
-      });
-    } else if (commandText == 'flush') {
-      return PoopSvc.reset(username, moment().toDate()).then(function(success) {
-        res.json({ text: username + ' is back to 0 poops', });
-      }).catch(function(err) {
-        res.json({ text: 'Couldn\'t flush the poop (' + err + ').', });
-      });
-    }
+  if (args) {
+    if (args == 'tomorrow') return res.json({ text: 'It is dangerous to know your poop future.', });
 
-    var date = dateParser(commandText);
-
-    if (!date) {
-      return res.json({ text: 'You dum.', });
-    }
+    var date = dateParser(args) || moment().toDate();
 
     PoopSvc.report(date).then(function(users) {
       res.json({
         response_type: 'in_channel',
         text: texts.report(date, users),
       });
-    });
-  } else {
-    res.json({
-      response_type: 'in_channel',
-      text: 'Congratulations',
+    }).catch(function(err) {
+      res.json({ text: 'Oh no (' + err + ')', });
     });
   }
 };
