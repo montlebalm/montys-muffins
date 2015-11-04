@@ -1,26 +1,17 @@
-var _ = require('lodash');
 var moment = require('moment');
 
 module.exports = function(text) {
-  var date;
-
   switch (text) {
     case 'today':
-      date = moment().toDate();
-      break;
+      return moment().toDate();
     case 'yesterday':
-      date = moment().add(-1, 'day').toDate();
-      break;
+      return moment().add(-1, 'day').toDate();
     case 'tomorrow':
-      date = moment().add(1, 'day').toDate();
-      break;
+      return moment().add(1, 'day').toDate();
     default:
       var dateMoment = moment(text);
       if (dateMoment.isValid()) {
-        date = dateMoment.toDate();
+        return dateMoment.toDate();
       }
-      break;
   }
-
-  return date;
 };
