@@ -18,7 +18,7 @@ module.exports = {
     });
 
     return [
-      '*Poops for ' + this.dateLabel(date) + '*',
+      '*Doodie digest for ' + this.dateLabel(date) + '*',
       usersText.join('\n'),
     ].join('\n');
   },
