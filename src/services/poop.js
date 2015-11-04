@@ -51,6 +51,9 @@ module.exports = {
   report: function(date) {
     var key = dateKey(date);
 
+    console.log('DATE', date);
+    console.log('KEY', key);
+
     return new Promise(function(resolve, reject) {
       Day.findOne({ date: key }, function(err, day) {
         if (err) return reject(err);
