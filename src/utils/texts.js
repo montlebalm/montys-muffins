@@ -1,6 +1,6 @@
 var moment = require('moment');
 
-module.export = {
+module.exports = {
   dateLabel: function(date) {
     if (moment(date).isSame(moment(), 'day')) {
       return 'today';
