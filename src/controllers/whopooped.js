@@ -1,6 +1,5 @@
 var moment = require('moment');
 
-var dateKey = require('../utils/dateKey');
 var dateParser = require('../utils/dateParser');
 var PoopSvc = require('../services/poop');
 

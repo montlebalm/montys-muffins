@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 
 var AuthController = require('./src/controllers/auth');
+var FlushController = require('./src/controllers/flush');
 var PoopinController = require('./src/controllers/poopin');
 var WhoPoopedController = require('./src/controllers/whopooped');
 
@@ -11,6 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/auth', AuthController);
 app.post('/poopin', PoopinController);
 app.post('/whopooped', WhoPoopedController);
+app.post('/flush', FlushController);
 
 var server = app.listen(process.env.PORT || 5000, function() {
   var host = server.address().address;
