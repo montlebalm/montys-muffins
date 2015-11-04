@@ -8,6 +8,8 @@ module.exports = {
   poopin: function(username) {
     var key = dateKey(moment().toDate());
 
+    console.log('POOPIN FOR:', username, key);
+
     return new Promise(function(resolve, reject) {
       Day.findOne({ date: key }, function(err, day) {
         if (err) return reject(err);
@@ -40,6 +42,8 @@ module.exports = {
   report: function(date) {
     var key = dateKey(date);
 
+    console.log('REPORT FOR:', key);
+
     return new Promise(function(resolve, reject) {
       Day.findOne({ date: key }, function(err, day) {
         if (err) return reject(err);
@@ -50,6 +54,8 @@ module.exports = {
   },
   reset: function(username, date) {
     var key = dateKey(date);
+
+    console.log('RESET FOR:', username, key);
 
     return new Promise(function(resolve, reject) {
       Day.findOne({ date: key }, function(err, day) {
