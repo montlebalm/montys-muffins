@@ -62,7 +62,8 @@ module.exports = function(req, res) {
       });
     } else if (commandText == 'flush') {
       return PoopSvc.reset(username, moment().toDate()).then(function(success) {
-        if (success) return res.json({ text: username + ' is back to 0 poops', });
+        res.json({ text: username + ' is back to 0 poops', });
+      }).catch(function() {
         res.json({ text: 'Couldn\'t flush the poop.', });
       });
     }

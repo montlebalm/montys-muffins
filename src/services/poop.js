@@ -52,10 +52,10 @@ module.exports = {
     return new Promise(function(resolve, reject) {
       Day.findOne({ date: key }, function(err, day) {
         if (err) return reject(err);
-        if (!day) return resolve(false);
+        if (!day) return reject('No day');
 
         var user = _.find(day.users, { name: username });
-        if (!user) return resolve(false);
+        if (!user) return reject('No matching user');
 
         user.count = 0;
 
