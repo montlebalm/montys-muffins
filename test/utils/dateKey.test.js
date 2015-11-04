@@ -13,13 +13,18 @@ describe('dateKey', function() {
     this.sinon.restore();
   });
 
-  it('should create the same key for the same day', function() {
+  it('creates a key using year-month-day', function() {
+    var today = dateKey(new Date(2015, 1, 5));
+    expect(today).to.eq('2015-2-5');
+  });
+
+  it('creates the same key for the same day', function() {
     var today = dateKey(new Date());
     var todayAlso = dateKey(new Date());
     expect(today).to.eq(todayAlso);
   });
 
-  it('should create different keys for different days', function() {
+  it('creates different keys for different days', function() {
     var today = dateKey(new Date());
     var notToday = dateKey(new Date(2000, 1, 1));
     expect(today).not.to.eq(notToday);
