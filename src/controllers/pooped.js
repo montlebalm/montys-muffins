@@ -3,7 +3,7 @@ var moment = require('moment');
 var dateKey = require('../utils/dateKey');
 var PoopSvc = require('../services/poop');
 
-function _todayText(users) {
+function _todayText(date, users) {
   if (!users || !users.length) {
     return 'OMG no one has pooped.';
   }
@@ -15,12 +15,14 @@ function _todayText(users) {
     return '  ' + user.name + ': ' + user.count;
   });
 
+  var dayText = 'today';
+
   return [
     '```',
-    'Poops today\n',
+    'Poops for ' + dayText,
     usersCount.join('\n'),
     '```'
-  ].join('');
+  ].join('\n');
 }
 
 /**
@@ -41,11 +43,11 @@ module.exports = function(req, res) {
   var commandText = req.body.text;
 
   if (commandText) {
+    console.log('COMMAND TEXT', commandText);
     var dateMoment = moment(commandText);
     var date = (dateMoment.isValid()) ? dateMoment.toDate() : new Date();
-    var key = dateKey(date);
 
-    PoopSvc.report().then(function(users) {
+    PoopSvc.report(date).then(function(users) {
       res.json({
         attachments: [],
         response_type: 'in_channel',
