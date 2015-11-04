@@ -18,11 +18,8 @@ module.exports = function(req, res) {
   var username = req.body.user_name;
 
   PoopSvc.poopin(username).then(function(user) {
-    res.json({
-      response_type: 'in_channel',
-      text: texts.poopin(user),
-    });
+    res.publicReply(texts.poopin(user));
   }).catch(function(err) {
-    res.json({ text: 'The server pooped (' + err + ')', });
+    res.errorReply(err);
   });
 };

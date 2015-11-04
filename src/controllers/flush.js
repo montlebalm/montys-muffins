@@ -19,8 +19,8 @@ module.exports = function(req, res) {
   var username = req.body.user_name;
 
   PoopSvc.reset(username, moment().toDate()).then(function() {
-    res.json({ text: username + ' is back to 0 poops', });
+    res.privateReply(username + ' is back to 0 poops');
   }).catch(function(err) {
-    res.json({ text: 'Couldn\'t flush the poop (' + err + ').', });
+    res.errorReply(err);
   });
 };
