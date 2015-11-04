@@ -13,7 +13,7 @@ var Day = mongoose.model('Date', daySchema);
 
 module.exports = {
   poopin: function(username) {
-    var key = dateKey(new Date());
+    var key = dateKey(moment().toDate());
 
     console.log('KEY', key);
 

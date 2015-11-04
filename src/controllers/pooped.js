@@ -1,6 +1,7 @@
 var moment = require('moment');
 
 var dateKey = require('../utils/dateKey');
+var dateParse = require('../utils/dateParse');
 var PoopSvc = require('../services/poop');
 
 function _todayText(date, users) {
@@ -43,21 +44,30 @@ module.exports = function(req, res) {
   var commandText = req.body.text;
 
   if (commandText) {
-    console.log('COMMAND TEXT', commandText);
-    var dateMoment = moment(commandText);
-    var date = (dateMoment.isValid()) ? dateMoment.toDate() : new Date();
+    if (commandText == 'tomorrow') {
+      return res.json({
+        response_type: 'in_channel',
+        text: 'It is dangerous to know your poop future.',
+      });
+    }
+
+    var date = dateParse(commandText);
+
+    if (!date) {
+      return res.json({
+        response_type: 'in_channel',
+        text: 'You dum.',
+      });
+    }
 
     PoopSvc.report(date).then(function(users) {
       res.json({
-        attachments: [],
         response_type: 'in_channel',
         text: _todayText(date, users),
       });
     });
   } else {
-    // Snarky response
     res.json({
-      attachments: [],
       response_type: 'in_channel',
       text: 'Congratulations',
     });
