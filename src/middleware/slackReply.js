@@ -28,7 +28,7 @@ module.exports = function(req, res, next) {
       text: txt,
     });
     res.json({
-      response_type: 'ephemeral',
+      response_type: 'in_channel',
     });
   };
 
