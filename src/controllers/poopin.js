@@ -16,8 +16,9 @@ var texts = require('../utils/texts');
 */
 module.exports = function(req, res) {
   var username = req.body.user_name;
+  var team = req.body.team_id;
 
-  PoopSvc.poopin(username).then(function(user) {
+  PoopSvc.poopin(team, username).then(function(user) {
     res.publicReply(texts.poopin(user));
   }).catch(function(err) {
     res.errorReply(err);

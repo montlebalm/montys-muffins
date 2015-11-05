@@ -2,72 +2,66 @@ var _ = require('lodash');
 var moment = require('moment');
 
 var dateKey = require('../utils/dateKey');
-var Day = require('../models/day');
+var db = require('../models/db');
+
+db.connect();
+var Team = db.Team;
 
 module.exports = {
-  poopin: function(username) {
+  poopin: function(teamId, username) {
     var key = dateKey(moment().toDate());
 
     console.log('POOPIN FOR:', username, key);
 
     return new Promise(function(resolve, reject) {
-      Day.findOne({ date: key }, function(err, day) {
-        if (err) return reject(err);
+      db.findOrCreate(Team, { teamId: teamId }).then(function(team) {
+        if (!team.days) team.days = {};
+        var days = team.days = (team.days || {});
 
-        if (!day) {
-          var user = { name: username, count: 1 };
-          return Day.create({
-            users: [user],
-            date: key
-          }, function(err, saved) {
-            if (err) return reject(err);
-            resolve(user);
-          });
-        }
+        if (!days[key]) days[key] = { date: key, users: {} };
+        var day = days[key];
 
-        var user = _.find(day.users, { name: username });
-        if (!user) {
-          user = { name: username, count: 0 };
-          day.users.push(user);
-        }
+        if (!day.users[username]) day.users[username] = { count: 0, name: username };
+        var user = day.users[username];
+
         user.count += 1;
 
-        Day.findOneAndUpdate({ date: key }, day, function(err, updated) {
+        Team.findOneAndUpdate({ teamId: teamId }, team, function(err) {
           if (err) return reject(err);
-          resolve(user);
+          resolve(team);
         });
-      });
+      }).catch(reject);
     });
   },
-  report: function(date) {
+  report: function(teamId, date) {
     var key = dateKey(date);
 
     console.log('REPORT FOR:', key);
 
     return new Promise(function(resolve, reject) {
-      Day.findOne({ date: key }, function(err, day) {
+      Team.findOne({ teamId: teamId }, function(err, team) {
         if (err) return reject(err);
-        if (!day) return resolve([]);
-        resolve(day.users);
+        if (!team || !team.days || !team.days[key]) return resolve([]);
+
+        var users = _.values(team.days[key].users);
+        resolve(users);
       });
     });
   },
-  reset: function(username, date) {
+  reset: function(teamId, username, date) {
     var key = dateKey(date);
 
     console.log('RESET FOR:', username, key);
 
     return new Promise(function(resolve, reject) {
-      Day.findOne({ date: key }, function(err, day) {
+      Team.findOne({ teamId: teamId }, function(err, team) {
         if (err) return reject(err);
-        if (!day) return reject('No day');
+        if (!team || !team.days || !team.days[key]) return resolve('No day for team');
+        if (!team.days[key].users[username]) return resolve('No user');
 
-        var user = _.find(day.users, { name: username });
-        if (!user) return reject('No matching user');
+        team.days[key].users[username].count = 0;
 
-        user.count = 0;
-
-        Day.findOneAndUpdate({ date: key }, day, function(err, updated) {
+        Team.findOneAndUpdate({ date: key }, team, function(err) {
           if (err) return reject(err);
           resolve(true);
         });
