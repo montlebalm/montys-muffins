@@ -28,7 +28,7 @@ module.exports = {
 
         Team.findOneAndUpdate({ teamId: teamId }, team, function(err) {
           if (err) return reject(err);
-          resolve(team);
+          resolve(user);
         });
       }).catch(reject);
     });
@@ -61,7 +61,7 @@ module.exports = {
 
         team.days[key].users[username].count = 0;
 
-        Team.findOneAndUpdate({ date: key }, team, function(err) {
+        Team.findOneAndUpdate({ teamId: teamId }, team, function(err) {
           if (err) return reject(err);
           resolve(true);
         });
