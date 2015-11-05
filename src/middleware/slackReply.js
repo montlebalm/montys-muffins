@@ -24,6 +24,7 @@ module.exports = function(req, res, next) {
 
   res.privateReply = function(txt) {
     postToResponseUrl(responseUrl, {
+      response_type: 'ephemeral',
       text: txt,
     });
     res.json({
