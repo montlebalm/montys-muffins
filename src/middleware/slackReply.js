@@ -27,9 +27,6 @@ module.exports = function(req, res, next) {
       response_type: 'ephemeral',
       text: txt,
     });
-    res.json({
-      response_type: 'in_channel',
-    });
   };
 
   res.errorReply = function(err) {
