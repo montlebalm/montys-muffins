@@ -59,7 +59,7 @@ module.exports = {
         if (!team || !team.days || !team.days[key]) return resolve('No day for team');
         if (!team.days[key].users[username]) return resolve('No user');
 
-        team.days[key].users[username].count = 0;
+        delete team.days[key].users[username];
 
         Team.findOneAndUpdate({ teamId: teamId }, team, function(err) {
           if (err) return reject(err);
