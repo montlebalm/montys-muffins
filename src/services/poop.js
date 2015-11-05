@@ -21,8 +21,11 @@ module.exports = {
         if (!days[key]) days[key] = { date: key, users: {} };
         var day = days[key];
 
-        if (!day.users[username]) day.users[username] = { count: 0, name: username };
-        var user = day.users[username];
+        if (!day.users) day.users = {};
+        var users = day.users;
+
+        if (!users[username]) users[username] = { count: 0, name: username };
+        var user = users[username];
 
         user.count += 1;
 
