@@ -20,12 +20,13 @@ var texts = require('../utils/texts');
 module.exports = function(req, res) {
   var username = req.body.user_name;
   var args = req.body.text;
+  var team = req.body.team_id;
 
   if (args == 'tomorrow') return res.publicReply('It is dangerous to know your poop future.');
 
   var date = dateParser(args) || moment().toDate();
 
-  PoopSvc.report(date).then(function(users) {
+  PoopSvc.report(team, date).then(function(users) {
     res.publicReply(texts.report(date, users));
   }).catch(function(err) {
     res.errorReply(err);
