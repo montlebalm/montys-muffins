@@ -17,18 +17,21 @@ module.exports = function(req, res, next) {
       response_type: 'in_channel',
       text: txt,
     });
+    res.sendStatus(200);
   };
 
   res.privateReply = function(txt) {
     postToResponseUrl(responseUrl, {
       text: txt,
     });
+    res.sendStatus(200);
   };
 
   res.errorReply = function(err) {
     postToResponseUrl(responseUrl, {
       text: 'The server pooped (' + err + ')',
     });
+    res.sendStatus(200);
   };
 
   next();
