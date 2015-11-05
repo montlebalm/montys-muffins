@@ -23,7 +23,7 @@ module.exports = {
     ].join('\n');
   },
   poopin: function(user) {
-    var ordinals = ['first', 'second', 'third', 'fourth'];
+    var ordinals = ['first', 'second', 'third'];
 
     if (user.count == 1) {
       return user.name + ' is pooping for the first time today!';
@@ -32,9 +32,9 @@ module.exports = {
     } else if (user.count == ordinals.length) {
       return user.name + ' has pooped ' + user.count + ' times! Poopbot is getting worried';
     } else if (user.count == ordinals.length + 1) {
-      return 'Poopbot thinks something is wrong with ' + user.name + '. Poopbot has called the police.';
+      return 'Something is wrong with ' + user.name + '. Poopbot will hide the prune juice.';
     }
 
-    return 'Poopbot thinks your playing a poopy joke and chooses not to engage.';
+    return 'Poopbot thinks ' + user.name + ' is playing a poopy joke and chooses not to engage.';
   }
 };
