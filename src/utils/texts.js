@@ -27,11 +27,11 @@ module.exports = {
 
     if (user.count == 1) {
       return user.name + ' is pooping for the first time today!';
-    } else if (user.count < ordinals.length) {
+    } else if (user.count <= ordinals.length) {
       return user.name + ' is pooping for the ' + ordinals[user.count - 1] + ' time.';
-    } else if (user.count == ordinals.length) {
-      return user.name + ' has pooped ' + user.count + ' times! Poopbot is getting worried';
     } else if (user.count == ordinals.length + 1) {
+      return user.name + ' has pooped ' + user.count + ' times! Poopbot is getting worried';
+    } else if (user.count == ordinals.length + 2) {
       return 'Something is wrong with ' + user.name + '. Poopbot will hide the prune juice.';
     }
 
