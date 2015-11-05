@@ -20,7 +20,7 @@ module.exports = function(req, res) {
   var team = req.body.team_id;
 
   PoopSvc.reset(team, username, moment().toDate()).then(function() {
-    res.privateReply(username + ' is back to 0 poops');
+    res.privateReply('No poops for ' + username);
   }).catch(function(err) {
     res.errorReply(err);
   });
