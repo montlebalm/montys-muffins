@@ -57,7 +57,7 @@ module.exports = {
       Team.findOne({ teamId: teamId }, function(err, team) {
         if (err) return reject(err);
         if (!team || !team.days || !team.days[key]) return resolve('No day for team');
-        if (!team.days[key].users[username]) return resolve('No user');
+        if (!team.days[key].users || !team.days[key].users[username]) return resolve('No user');
 
         delete team.days[key].users[username];
 
