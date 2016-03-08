@@ -17,9 +17,7 @@ module.exports = function(req, res, next) {
       response_type: 'in_channel',
       text: txt,
     });
-    res.json({
-      response_type: 'in_channel',
-    });
+    res.send();
   };
 
   res.privateReply = function(txt) {
