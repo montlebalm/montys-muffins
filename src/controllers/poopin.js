@@ -23,7 +23,4 @@ module.exports = function(req, res) {
   }).catch(function(err) {
     res.errorReply(err);
   });
-
-  // Let Slack know we didn't timeout
-  res.send();
 };
